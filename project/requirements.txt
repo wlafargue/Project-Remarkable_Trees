@@ -1,4 +1,4 @@
-airflow
+apache-airflow
 datetime
 kaggle
 pandas

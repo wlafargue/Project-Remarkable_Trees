@@ -13,6 +13,7 @@ downloads_path = '../data/raw'
 # Postgres database
 db_params = {
     'database': 'remarkable_trees',
+    'host': 'postgres',
     'user': 'postgres',
     'password': 'postgres',
     'port': '5433'
