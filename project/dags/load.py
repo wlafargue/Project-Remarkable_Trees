@@ -11,7 +11,9 @@ def load(dfs, db_params):
         db_params (dict): parameters for Postgres connection
     
     """
-    print('Start loading data')
+
+    print('Start loading data...')
+
     # Connection to Postgres database
     connection = psycopg2.connect(database=db_params['database'],
                                   host=db_params['host'],
@@ -21,7 +23,8 @@ def load(dfs, db_params):
     cursor = connection.cursor()
 
     # Create and fill addresses table
-    query_create_table = f"CREATE TABLE IF NOT EXISTS addresses (\
+    query_create_table = f"DROP TABLE IF EXISTS addresses;\
+    CREATE TABLE IF NOT EXISTS addresses (\
     id SERIAL PRIMARY KEY,\
     address VARCHAR(50) NOT NULL,\
     arrondissement VARCHAR(50) NOT NULL,\
@@ -38,7 +41,8 @@ def load(dfs, db_params):
     connection.commit()
 
     # Create and fill trees table
-    query_create_table = f"CREATE TABLE IF NOT EXISTS trees (\
+    query_create_table = f"DROP TABLE IF EXISTS trees;\
+    CREATE TABLE IF NOT EXISTS trees (\
     id INTEGER PRIMARY KEY,\
     variety VARCHAR(50) NOT NULL,\
     family VARCHAR(50) NOT NULL,\

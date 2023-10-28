@@ -1,7 +1,7 @@
 
 from datetime import datetime
 
-from .. import extract, transform, load
+from . import extract, transform, load
 
 from airflow import DAG
 
@@ -13,13 +13,12 @@ downloads_path = '../data/raw'
 # Postgres database
 db_params = {
     'database': 'remarkable_trees',
-    'host': 'localhost',
     'user': 'postgres',
     'password': 'postgres',
-    'port': '5434'
+    'port': '5433'
 }
 
-with DAG(dag_id='etl_remarkable_trees_pipeline',
+with DAG(dag_id='etl_pipeline',
          description='A simple ETL pipeline using Python, PostgreSQL, Apache Airflow and Docker',
          schedule=None,
          start_date=datetime(year=2023, month=10, day=25),

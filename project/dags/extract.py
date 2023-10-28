@@ -6,7 +6,7 @@ import pandas as pd
 kaggle_credentials = '../config/kaggle.json'
 
 @task
-def extract(dataset_name, downloads_path):
+def extract(dataset_name, csv_file, downloads_path):
     """ Download dataset from Kaggle using the Kaggle API and store 
         data into 'downloads_path' directory.
 
@@ -14,6 +14,8 @@ def extract(dataset_name, downloads_path):
         dataset_name (str): Kaggle API key
     
     """
+
+    print('Start extracting data...')
 
     # Initialize the Kaggle API
     api = KaggleApi(api_key_path=kaggle_credentials)
@@ -23,7 +25,9 @@ def extract(dataset_name, downloads_path):
                                path=downloads_path, 
                                unzip=True)
     
-    df = pd.read_csv('{downloads_path}/{trees.csv}', sep=';')
+    df = pd.read_csv('{downloads_path}/{csv_file}', sep=';')
+
+    print('Data successfully extracted!')
 
     return df
 

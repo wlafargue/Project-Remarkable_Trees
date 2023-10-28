@@ -1,0 +1,49 @@
+version: '3'
+
+services:
+
+  postgres:
+    image: "postgres"
+    container_name: 'postgres'
+    environment:
+      POSTGRES_DB: remarkable_trees
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5433:5433"
+    volumes:
+      - remarkable_trees:/var/lib/postgresql/data
+
+  webserver:
+    image: apache/airflow
+    container_name: 'webserver'
+    environment:
+      AIRFLOW__CORE__SQL_ALCHEMY_CONN=postgresql+psycopg2://postgres:postgres@postgres/remarkable_trees
+      AIRFLOW__CORE__EXECUTOR=LocalExecutor
+    build: .
+    restart: always
+    depends_on:
+      - postgres
+    volumes:
+      - ./dags:/usr/local/airflow/dags
+      - ./scripts:/usr/local/airflow/scripts
+    ports:
+      - "8080:8080"
+    entrypoint: ./scripts/entrypoint.sh
+
+  scheduler:
+    image: apache/airflow
+    container_name: "scheduler"
+    build: .
+    restart: always
+    depends_on:
+      - postgres
+      - webserver
+    volumes:
+      - ./dags:/usr/local/airflow/dags
+      - ./scripts:/usr/local/airflow/scripts
+      - ./config:/usr/local/airflow/config
+    entrypoint: airflow scheduler
+
+volumes:
+  remarkable_trees:
