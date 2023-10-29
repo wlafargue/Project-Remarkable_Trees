@@ -1,5 +1,3 @@
-apache-airflow
-datetime
+psycopg2-binary
 kaggle
 pandas
-psycopg2

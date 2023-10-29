@@ -1,19 +1,10 @@
 # Image
-FROM puckel/docker-airflow:1.10.6
+FROM apache/airflow:2.6.2-python3.9
 
 # Create working directory
-WORKDIR /app
+WORKDIR /opt/airflow
+COPY . ./
+COPY ~/.kaggle/kaggle.json /opt/airflow/config
 
-# Install requirements
-COPY requirements.txt requirements.txt
-RUN pip install -r requirements.txt
-
-COPY dags/ /dags
-COPY data/ /data
-COPY config/ /config
-COPY scripts/ /scripts
-
-# Set Apache Airflow environment variables
-ENV AIRFLOW_HOME=/usr/local/airflow
-
-ENTRYPOINT ["python", "/dags/etl_pipeline.py"]
+# Install dependencies
+RUN pip install --no-cache-dir -r requirements.txt

@@ -1,22 +1,23 @@
 
 from datetime import datetime
+import os
 
 from . import extract, transform, load
 
 from airflow import DAG
 
-# Dataset
-dataset_name = 'mpwolke/cusersmarildownloadstreescsv'
-csv_file = 'trees.csv'
-downloads_path = '../data/raw'
+# Kaggle
+dataset_name = os.environ.get('KAGGLE_DATASET_PATH')
+csv_file = os.environ.get('KAGGLE_DATASET_CSV')
+download_path = os.environ.get('DOWNLOADS')
 
-# Postgres database
+# Postgres
 db_params = {
-    'database': 'remarkable_trees',
-    'host': 'postgres',
-    'user': 'postgres',
-    'password': 'postgres',
-    'port': '5433'
+    'POSTGRES_DB': os.environ.get('POSTGRES_DB'),
+    'POSTGRES_USER': os.environ.get('POSTGRES_USER'),
+    'POSTGRES_PASSWORD': os.environ.get('POSTGRES_PASSWORD'),
+    'POSTGRES_HOST': os.environ.get('POSTGRES_HOST'),
+    'POSTGRES_PORT': os.environ.get('POSTGRES_PORT')
 }
 
 with DAG(dag_id='etl_pipeline',

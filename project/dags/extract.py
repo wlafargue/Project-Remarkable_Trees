@@ -1,3 +1,5 @@
+import os
+import kaggle
 from airflow.decorators import task
 from kaggle.api.kaggle_api_extended import KaggleApi
 import pandas as pd
