@@ -20,14 +20,13 @@ def extract(dataset_name, csv_file, downloads_path):
     print('Start extracting data...')
 
     # Initialize the Kaggle API
-    api = KaggleApi(api_key_path=kaggle_credentials)
+    api = KaggleApi()
+    api.authenticate()
 
     # Download files
-    api.dataset_download_files(dataset_name, 
-                               path=downloads_path, 
-                               unzip=True)
+    api.dataset_download_file(dataset_name, file_name=f'{csv_file}', path='./data')
     
-    df = pd.read_csv('{downloads_path}/{csv_file}', sep=';')
+    df = pd.read_csv(f'./data/{csv_file}', sep=';')
 
     print('Data successfully extracted!')
 

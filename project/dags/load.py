@@ -15,11 +15,11 @@ def load(dfs, db_params):
     print('Start loading data...')
 
     # Connection to Postgres database
-    connection = psycopg2.connect(database=db_params['database'],
-                                  host=db_params['host'],
-                                  user=db_params['user'],
-                                  password=db_params['password'],
-                                  port=db_params['port'])
+    connection = psycopg2.connect(database=db_params['POSTGRES_DB'],
+                                  host=db_params['POSTGRES_HOST'],
+                                  user=db_params['POSTGRES_USER'],
+                                  password=db_params['POSTGRES_PASSWORD'],
+                                  port=db_params['POSTGRES_PORT'])
     cursor = connection.cursor()
 
     # Create and fill addresses table
