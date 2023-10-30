@@ -2,14 +2,16 @@
 from datetime import datetime
 import os
 
-from . import extract, transform, load
+from extract import extract
+from load import load
+from transform import transform
 
 from airflow import DAG
 
 # Kaggle
 dataset_name = os.environ.get('KAGGLE_DATASET_PATH')
 csv_file = os.environ.get('KAGGLE_DATASET_CSV')
-download_path = os.environ.get('DOWNLOADS')
+downloads_path = os.environ.get('DOWNLOADS')
 
 # Postgres
 db_params = {

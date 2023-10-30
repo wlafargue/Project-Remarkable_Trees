@@ -1,11 +1,7 @@
-import os
-import kaggle
+import json
 from airflow.decorators import task
 from kaggle.api.kaggle_api_extended import KaggleApi
 import pandas as pd
-
-# Configurations
-kaggle_credentials = '../config/kaggle.json'
 
 @task
 def extract(dataset_name, csv_file, downloads_path):
@@ -14,6 +10,8 @@ def extract(dataset_name, csv_file, downloads_path):
 
     Args:
         dataset_name (str): Kaggle API key
+        csv_file (str): CSV file
+        downloads_path (str): path to downloads directory
     
     """
 
@@ -24,7 +22,7 @@ def extract(dataset_name, csv_file, downloads_path):
     api.authenticate()
 
     # Download files
-    api.dataset_download_file(dataset_name, file_name=f'{csv_file}', path='./data')
+    api.dataset_download_file(dataset_name, file_name=f'{csv_file}', path=downloads_path)
     
     df = pd.read_csv(f'./data/{csv_file}', sep=';')
 
