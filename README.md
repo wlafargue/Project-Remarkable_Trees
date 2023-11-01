@@ -1,4 +1,4 @@
-# Project Remarkable Trees
+# ETL Pipeline on Remarkable Trees data
 
 This projects presents a simple ETL (Extract, Transform and Load) pipeline in which:
 - data are extracted from a dataset using the Kaggle API
